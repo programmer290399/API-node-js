@@ -1,0 +1,17 @@
+{
+  "name": "first_try",
+  "version": "1.0.0",
+  "description": "first node app ",
+  "main": "my_app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "saahil",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.14",
+    "urlencode": "^1.1.0"
+  }
+}
