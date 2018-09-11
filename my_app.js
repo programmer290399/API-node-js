@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 
-
-const Car = require('./app/carModel.js');
+var assert = require ('assert');
+const Car = require('./carModel.js');
 
 app.use(bodyParser.urlencoded({ extend: false }));
 app.use(bodyParser.json());
@@ -33,6 +33,32 @@ app.post('/cars', (req, res) => {
         make: req.query.make,
         model: req.query.model,
         year: req.query.year
+    }, (err, cars) => {
+        if (err)
+            console.log(handleError(err));
+        Car.find((err, cars) => {
+            if (err)
+                console.log(handleError(err));
+            res.json(cars);
+        });
+    });
+});
+app.put('/cars/:id', (req, res) => {
+    Car.findById(req.params.id, (err, car) => {
+        car.update(req.query, (err, cars) => {
+            if (err)
+                console.log(handleError(err));
+            Car.find((err, cars) => {
+                if (err)
+                    console.log(handleError(err));
+                res.json(cars);
+            });
+        });
+    });
+});
+app.delete('/cars/:id', (req, res) => {
+    Car.remove({
+        _id: req.params.id
     }, (err, cars) => {
         if (err)
             console.log(handleError(err));
